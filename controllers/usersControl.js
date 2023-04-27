@@ -66,10 +66,21 @@ const loginUser = async (req, res) => {
 }
 
 const getUsers = async (req, res) => {
-    const data = await userModel.find({});
+    const data = await userModel.findAll({});
     res.send({data}); 
 }
 
+const getUsersById = async (req, res) => {
+    try{
+        const {id} = req.params;
+        const data = await userModel.findUserById(id);
+        res.send({data});
+    }catch(e){
+        console.log(e);
+        handleHttpErros(res, 'ERROR_GET_USER_BY_ID');
+    }
+}
 
-module.exports = {createUser, loginUser, getUsers};
+
+module.exports = {createUser, loginUser, getUsers, getUsersById};
 

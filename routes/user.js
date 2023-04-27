@@ -5,6 +5,7 @@ const { validatorLoginUser, validatorRegisterUser } = require('../validators/Use
 
 
 router.post('/login', validatorLoginUser, users.loginUser);
+router.get('/users/:id', users.getUsersById);
 router.get('/users', users.getUsers);
 router.post('/register', validatorRegisterUser ,users.createUser);
 

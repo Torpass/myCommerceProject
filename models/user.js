@@ -1,5 +1,6 @@
 const {sequelize} = require('../config/mySql');
 const {DataTypes} = require('sequelize'); 
+const usuarios_tipos = require('./usersType');
 
 const User = sequelize.define(
     'usuarios',
@@ -13,6 +14,17 @@ const User = sequelize.define(
         timestamps: true, // createdAt, updatedAt
     }
 );
+
+User.findUserById = function(id){
+    User.belongsTo(usuarios_tipos, { 
+        foreignKey: 'tipo_id',
+        as: 'tipo_usuario' });
+
+    return User.findAll({
+        where: { id: id },
+        include: { model: usuarios_tipos, as: 'tipo_usuario' }
+        });
+};
 
 module.exports = User;
     
